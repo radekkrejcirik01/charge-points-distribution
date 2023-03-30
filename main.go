@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Go Docker!")
+	fmt.Println("App is running!")
 	database.Connect()
 
 	if err := rest.Create().Listen(":8081"); err != nil {

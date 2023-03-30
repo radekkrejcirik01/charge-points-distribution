@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -16,12 +15,11 @@ const (
 	dbname     = "chargepoints"
 )
 
-// DB is connected MySQL DB
+// DB is connected Postgres DB
 var DB *gorm.DB
 
 // Connect to Postgres server
 func Connect() {
-	fmt.Println(dbhost)
 	dsn := "host=host.docker.internal user=user password=userpassword dbname=chargepoints port=5432 sslmode=disable"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
