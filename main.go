@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
+
+	"github.com/radekkrejcirik01/charge-points-distribution/pkg/database"
+	"github.com/radekkrejcirik01/charge-points-distribution/pkg/rest"
 )
 
 func main() {
 	fmt.Println("Go Docker!")
+	database.Connect()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello Docker world")
-	})
-
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	if err := rest.Create().Listen(":8081"); err != nil {
+		log.Fatal(err)
+	}
 }

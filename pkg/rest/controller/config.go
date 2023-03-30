@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/radekkrejcirik01/charge-points-distribution/pkg/database"
 )
 
 func Config(c *fiber.Ctx) error {
