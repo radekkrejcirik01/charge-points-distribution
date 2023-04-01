@@ -23,18 +23,18 @@ func GetOutput(db *gorm.DB) ([]Output, error) {
 	}
 
 	// Get all charge points from DB
-	chargePoints, err := database.GetChargePoints(db)
+	chPoints, err := database.GetChargePoints(db)
 	if err != nil {
 		return []Output{}, err
 	}
 
 	// Get all charge points connectors from DB
-	chargePointsConnectors, err := database.GetChargePointsConnectors(db)
+	chPointsConnectors, err := database.GetChargePointsConnectors(db)
 	if err != nil {
 		return []Output{}, err
 	}
 
-	return getOutput(groups, chargePoints, chargePointsConnectors)
+	return getOutput(groups, chPoints, chPointsConnectors)
 }
 
 // Get list of maps with charge point id and it's current
@@ -72,7 +72,7 @@ func getOutput(
 		output = append(output, currents...)
 	}
 
-	// Order output values by ChargePointId
+	// Order output values by charge point id
 	sort.SliceStable(output, func(i, y int) bool {
 		return output[i].ChargePointId < output[y].ChargePointId
 	})
@@ -80,8 +80,11 @@ func getOutput(
 	return output, nil
 }
 
-// Get charge points from one group by id
-func getChargePointsByGroupId(groupId uint, chargePoints []database.ChargePoint) []database.ChargePoint {
+// Get charge points per group id
+func getChargePointsByGroupId(
+	groupId uint,
+	chargePoints []database.ChargePoint,
+) []database.ChargePoint {
 	result := make([]database.ChargePoint, 0)
 
 	for _, chargePoint := range chargePoints {
@@ -111,7 +114,7 @@ func hasChargePointChargingStatus(
 func distributeCurrent(availableChPointIds []uint, maxCurrent float32) []Output {
 	output := make([]Output, 0)
 
-	// Devide the maxinal currebt by number of charge points
+	// Devide the maxinal current by number of charge points
 	chargePointsNumber := len(availableChPointIds)
 	current := maxCurrent / float32(chargePointsNumber)
 

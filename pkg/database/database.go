@@ -33,7 +33,7 @@ func Connect() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println("succesfully connected to database")
 
 	DB = database
-	log.Println("succesfully connected to database")
 }
