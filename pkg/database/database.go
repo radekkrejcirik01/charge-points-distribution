@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -8,27 +9,31 @@ import (
 )
 
 const (
-	dbhost     = "localhost"
+	dbhost     = "host.docker.internal"
 	dbport     = "5432"
 	dbuser     = "user"
 	dbpassword = "userpassword"
-	dbname     = "chargepoints"
+	dbname     = "distribution"
 )
 
-// DB is connected Postgres DB
 var DB *gorm.DB
 
 // Connect to Postgres server
 func Connect() {
-	dsn := "host=host.docker.internal user=user password=userpassword dbname=chargepoints port=5432 sslmode=disable"
+	dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		dbhost,
+		dbuser,
+		dbpassword,
+		dbname,
+		dbport,
+	)
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	DB = db
-}
 
-// GetConfig for debuging
-func GetConfig() (string, string, string, string, string) {
-	return dbhost, dbport, dbuser, dbpassword, dbname
+	DB = db
+	log.Println("succesfully connected to database")
 }

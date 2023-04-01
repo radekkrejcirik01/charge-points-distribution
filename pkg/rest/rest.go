@@ -10,9 +10,8 @@ func Create() *fiber.App {
 	app := fiber.New()
 
 	app.Get("/", controller.Index)
-	app.Get("/config", controller.Config)
 
-	app.Get("/status/:id", controller.GetStatusById)
+	app.Get("/get", controller.GetOutput)
 
 	return app
 }

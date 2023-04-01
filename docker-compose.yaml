@@ -10,7 +10,7 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: chargepoints
+      POSTGRES_DB: distribution
       POSTGRES_USER: user
       POSTGRES_PASSWORD: userpassword
     healthcheck:

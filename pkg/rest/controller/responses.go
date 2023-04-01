@@ -1,15 +1,11 @@
 package controller
 
-import (
-	"github.com/radekkrejcirik01/charge-points-distribution/pkg/model/statuses"
-)
-
 type ErrorResponse struct {
 	Status  string `json:""`
 	Message string `json:",omitempty"`
 }
-type ResponseGetStatusById struct {
-	Status  string            `json:""`
-	Message string            `json:",omitempty"`
-	Data    statuses.Statuses `json:",omitempty"`
+type ResponseGet struct {
+	Status  string `json:""`
+	Message string `json:",omitempty"`
+	Data    string `json:",omitempty"`
 }
