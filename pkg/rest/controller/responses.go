@@ -1,6 +1,6 @@
 package controller
 
-type ErrorResponse struct {
+type Response struct {
 	Status  string `json:""`
 	Message string `json:",omitempty"`
 }

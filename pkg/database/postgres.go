@@ -66,3 +66,18 @@ func GetChargePointsConnectors(d *gorm.DB) ([]ChargePointConnector, error) {
 
 	return chPointConnectors, nil
 }
+
+func CreateGroup(db *gorm.DB, maxCurrent float32) error {
+	return db.Table("groups").Create(&Group{MaxCurrent: maxCurrent}).Error
+}
+
+func AddChargePoint(db *gorm.DB, groupId uint) error {
+	return db.Table("charge_points").Create(&ChargePoint{GroupId: groupId}).Error
+}
+
+func AddChargePointConnector(db *gorm.DB, chPointId uint, status string) error {
+	return db.Table("charge_point_connectors").Create(&ChargePointConnector{
+		ChargePointId: chPointId,
+		Status:        status,
+	}).Error
+}
