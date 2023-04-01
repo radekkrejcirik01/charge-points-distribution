@@ -5,11 +5,11 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/radekkrejcirik01/charge-points-distribution/pkg/database"
-	"github.com/radekkrejcirik01/charge-points-distribution/pkg/model/statuses"
+	"github.com/radekkrejcirik01/charge-points-distribution/pkg/service"
 )
 
 func GetOutput(c *fiber.Ctx) error {
-	output, err := statuses.GetOutput(database.DB)
+	output, err := service.GetOutput(database.DB)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(ErrorResponse{
 			Status:  "error",

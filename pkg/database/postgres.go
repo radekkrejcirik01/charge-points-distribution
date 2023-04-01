@@ -1,4 +1,4 @@
-package statuses
+package database
 
 import (
 	"fmt"
@@ -6,10 +6,26 @@ import (
 	"gorm.io/gorm"
 )
 
+type Group struct {
+	Id         uint
+	MaxCurrent float32
+}
+
+type ChargePoint struct {
+	Id      uint
+	GroupId uint
+}
+
+type ChargePointConnector struct {
+	Id            uint
+	ChargePointId uint
+	Status        string
+}
+
 // Get all groups records from groups table
-func getGroups(db *gorm.DB) ([]Group, error) {
+func GetGroups(d *gorm.DB) ([]Group, error) {
 	var groups []Group
-	if err := db.Table("groups").Find(&groups).Error; err != nil {
+	if err := d.Table("groups").Find(&groups).Error; err != nil {
 		return []Group{}, err
 	}
 
@@ -22,9 +38,9 @@ func getGroups(db *gorm.DB) ([]Group, error) {
 }
 
 // Get all charge points records from charge_points table
-func getChargePoints(db *gorm.DB) ([]ChargePoint, error) {
+func GetChargePoints(d *gorm.DB) ([]ChargePoint, error) {
 	var chargePoints []ChargePoint
-	if err := db.Table("charge_points").Find(&chargePoints).Error; err != nil {
+	if err := d.Table("charge_points").Find(&chargePoints).Error; err != nil {
 		return []ChargePoint{}, err
 	}
 
@@ -37,9 +53,9 @@ func getChargePoints(db *gorm.DB) ([]ChargePoint, error) {
 }
 
 // Get all charge points connectors records from charge_points_connectors table
-func getChargePointsConnectors(db *gorm.DB) ([]ChargePointConnector, error) {
+func GetChargePointsConnectors(d *gorm.DB) ([]ChargePointConnector, error) {
 	var chargePointConnectors []ChargePointConnector
-	if err := db.Table("charge_point_connectors").Find(&chargePointConnectors).Error; err != nil {
+	if err := d.Table("charge_point_connectors").Find(&chargePointConnectors).Error; err != nil {
 		return []ChargePointConnector{}, err
 	}
 

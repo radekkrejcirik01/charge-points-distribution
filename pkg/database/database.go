@@ -29,11 +29,11 @@ func Connect() {
 		dbport,
 	)
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	DB = db
+	DB = database
 	log.Println("succesfully connected to database")
 }

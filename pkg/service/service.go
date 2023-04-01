@@ -1,28 +1,14 @@
-package statuses
+package service
 
 import (
 	"sort"
 
+	"github.com/radekkrejcirik01/charge-points-distribution/pkg/database"
 	"gorm.io/gorm"
 )
 
 const chargingStatus = "Charging"
-
-type Group struct {
-	Id         uint
-	MaxCurrent float32
-}
-
-type ChargePoint struct {
-	Id      uint
-	GroupId uint
-}
-
-type ChargePointConnector struct {
-	Id            uint
-	ChargePointId uint
-	Status        string
-}
+const availableStatus = "Available"
 
 type Output struct {
 	ChargePointId uint    `json:"chargePointId"`
@@ -31,19 +17,19 @@ type Output struct {
 
 func GetOutput(db *gorm.DB) ([]Output, error) {
 	// Get all groups from DB
-	groups, err := getGroups(db)
+	groups, err := database.GetGroups(db)
 	if err != nil {
 		return []Output{}, err
 	}
 
 	// Get all charge points from DB
-	chargePoints, err := getChargePoints(db)
-	if err != nil || len(chargePoints) == 0 {
+	chargePoints, err := database.GetChargePoints(db)
+	if err != nil {
 		return []Output{}, err
 	}
 
 	// Get all charge points connectors from DB
-	chargePointsConnectors, err := getChargePointsConnectors(db)
+	chargePointsConnectors, err := database.GetChargePointsConnectors(db)
 	if err != nil {
 		return []Output{}, err
 	}
@@ -53,9 +39,9 @@ func GetOutput(db *gorm.DB) ([]Output, error) {
 
 // Get list of maps with charge point id and it's current
 func getOutput(
-	groups []Group,
-	chargePoints []ChargePoint,
-	chargePointsConnectors []ChargePointConnector,
+	groups []database.Group,
+	chargePoints []database.ChargePoint,
+	chargePointsConnectors []database.ChargePointConnector,
 ) ([]Output, error) {
 	output := make([]Output, 0)
 
@@ -95,8 +81,8 @@ func getOutput(
 }
 
 // Get charge points from one group by id
-func getChargePointsByGroupId(groupId uint, chargePoints []ChargePoint) []ChargePoint {
-	result := make([]ChargePoint, 0)
+func getChargePointsByGroupId(groupId uint, chargePoints []database.ChargePoint) []database.ChargePoint {
+	result := make([]database.ChargePoint, 0)
 
 	for _, chargePoint := range chargePoints {
 		if chargePoint.GroupId == groupId {
@@ -110,7 +96,7 @@ func getChargePointsByGroupId(groupId uint, chargePoints []ChargePoint) []Charge
 // Check if charge point has at least one charging status
 func hasChargePointChargingStatus(
 	chargePointId uint,
-	chargePointsConnectors []ChargePointConnector,
+	chargePointsConnectors []database.ChargePointConnector,
 ) bool {
 	for _, connector := range chargePointsConnectors {
 		if connector.ChargePointId == chargePointId && connector.Status == chargingStatus {
