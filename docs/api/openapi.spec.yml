@@ -1,0 +1,116 @@
+---
+openapi: "3.1.0"
+info:
+  version: 1.0.0
+  title: Current distribution API
+  description: This API handles distribution of current between charge points in a charge point group
+
+paths:
+  "/get":
+    get:
+      description: Get all the current distribution between charge points in groups from database
+      responses:
+        '200':
+          description: List of maps with charge point id and current
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/GetResponse"
+        '500':
+          description: Internal server error
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/Response"
+
+  "/create/group/{maxCurrent}":
+    get:
+      description: Create a new group with maximal current
+      responses:
+        '200':
+          description: Success message
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/Response"
+
+  "/add/charge-point/{groupId}":
+    get:
+      description: Add a new charge point with group id
+      responses:
+        '200':
+          description: Success message
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/Response"
+
+  "/add/charge-point-connector/{chargePointId}/{status}":
+    get:
+      description: Add a new charge point connector with status for specific charge point
+      responses:
+        '200':
+          description: Success message
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/Response"
+
+components:
+  schemas:
+    Response:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          example: "Success"
+        message:
+          type: string
+          example: "Group with maximal current 20 created!"
+
+    GetResponse:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: string
+          example: "Success"
+        message:
+          type: string
+          example: "Group with maximal current 20 created!"
+        data:
+          type: object
+          required:
+            - charge_point_id
+            - current
+          properties:
+            charge_point_id:
+              type: uint
+              example: 1
+            current:
+              type: float32
+              example: 10.25
