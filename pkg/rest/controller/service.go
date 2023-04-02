@@ -10,6 +10,7 @@ import (
 	"github.com/radekkrejcirik01/charge-points-distribution/pkg/service"
 )
 
+// Get all charge points and currents from charge points groups
 func GetOutput(c *fiber.Ctx) error {
 	// Get output of all charge points with distributed currents
 	output, err := service.GetOutput(database.DB)
@@ -29,6 +30,7 @@ func GetOutput(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).Send(data)
 }
 
+// Create new record of group with maxiamal current in database
 func CreateGroup(c *fiber.Ctx) error {
 	maxCurrentParam := c.Params("maxCurrent")
 
@@ -55,6 +57,7 @@ func CreateGroup(c *fiber.Ctx) error {
 	})
 }
 
+// Add new charge point with group id to database
 func AddChargePoint(c *fiber.Ctx) error {
 	groupIdParam := c.Params("groupId")
 
@@ -80,6 +83,7 @@ func AddChargePoint(c *fiber.Ctx) error {
 	})
 }
 
+// Add charge point connector with charge point id and status to database
 func AddChargePointConnector(c *fiber.Ctx) error {
 	chPointIdParam := c.Params("chargePointId")
 	status := c.Params("status")
@@ -109,6 +113,7 @@ func AddChargePointConnector(c *fiber.Ctx) error {
 	})
 }
 
+// Update charge point connector status by id in database
 func UpdateChargePointConnector(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 	status := c.Params("status")

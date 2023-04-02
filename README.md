@@ -1,6 +1,6 @@
 # Current distribution REST API
 
-This application distributes maximum current of charge group between charge points based on charging status of each charge point's connectors. If charge point has none connectors with `Charging` status, 0 current is allocated to the charge point.
+This application distributes maximum current of charge group between charge points based on priority of the charge point. The priority is calculated between available charge points that have none connectors with `Charging` status, otherwise 0 current is allocated to the charge point.
 
 ## Run requirements
 - Docker
