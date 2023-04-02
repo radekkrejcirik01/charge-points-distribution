@@ -1,10 +1,13 @@
-# Charge points current distribution
+# Current distribution REST API
 
-REST API for current distribution in groups of charge points
+App for current distribution in groups of charge points
 
 ## Run requirements
 - Docker
 - Database management tool e.g. TablePlus (optional)
+
+## Run the app step by step
+`./docs/run.md`
 
 ## Run test locally
 
