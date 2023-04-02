@@ -1,7 +1,7 @@
 ## To make the app work we need to run the database container and build the app image with these simple steps:
 ## Run database container
 ### 1) Build and start the container with init sql script
-Details about postgres service can be find in `docker-compose.yaml` file
+Details about postgres service can be found in `docker-compose.yaml` file
 ```shell
 docker compose up -d
 ```
@@ -18,7 +18,7 @@ host     = "localhost"
 port     = "5432"
 user     = "user"
 password = "userpassword"
-name     = "distribution"
+database = "distribution"
 ```
 
 ## Run the application
