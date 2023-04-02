@@ -1,7 +1,7 @@
 ## To make the app work we need to run the database container and build the app image with these simple steps:
 ## Run database container
-This 
-### 1) Run the database container and migration
+### 1) Build and start the container with init sql script
+Details about postgres service can be find in `docker-compose.yaml` file
 ```shell
 docker compose up -d
 ```
@@ -9,7 +9,7 @@ docker compose up -d
 ```shell
 docker container ls
 ```
-### 3) Connect locally to db management tool e.g. TablePlus (optional)
+### 3) Connect locally to database management tool e.g. TablePlus (optional)
 All tables and records are directly in database after every change.
 Use database management tool of your choice and create new connection to
 postgres with these values:
