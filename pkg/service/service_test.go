@@ -70,13 +70,13 @@ func TestHasChargePointChargingStatus(t *testing.T) {
 			expected:      false,
 		},
 		{
-			name:          "Has one charging",
+			name:          "Has one charging status",
 			chargePointId: 2,
 			provided:      chargePointConnectors,
 			expected:      true,
 		},
 		{
-			name:          "Has mutliple charging statuss",
+			name:          "Has mutliple charging status",
 			chargePointId: 3,
 			provided:      chargePointConnectors,
 			expected:      true,
@@ -109,7 +109,7 @@ func TestDistributeCurrent(t *testing.T) {
 			},
 		},
 		{
-			name:       "Pass deciaml number as maximal current",
+			name:       "Pass decimal number as maximal current",
 			maxCurrent: 12.5,
 			provided:   availableChPointIds,
 			expected: []Output{

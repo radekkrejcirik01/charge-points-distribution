@@ -82,9 +82,9 @@ func AddChargePoint(c *fiber.Ctx) error {
 
 func AddChargePointConnector(c *fiber.Ctx) error {
 	chPointIdParam := c.Params("chargePointId")
-	chPointStatusParam := c.Params("status")
+	status := c.Params("status")
 
-	// Convert string charge point id to unsigned integer
+	// Convert string of charge point id to unsigned integer
 	chPointId, parseErr := strconv.ParseUint(chPointIdParam, 10, 32)
 	if parseErr != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(Response{
@@ -93,7 +93,7 @@ func AddChargePointConnector(c *fiber.Ctx) error {
 		})
 	}
 
-	if err := database.AddChargePointConnector(database.DB, uint(chPointId), chPointStatusParam); err != nil {
+	if err := database.AddChargePointConnector(database.DB, uint(chPointId), status); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(Response{
 			Status:  "error",
 			Message: err.Error(),
@@ -104,7 +104,36 @@ func AddChargePointConnector(c *fiber.Ctx) error {
 		Status: "Success",
 		Message: fmt.Sprintf("Charge point connector added for charge point id %d with status %s",
 			chPointId,
-			chPointStatusParam,
+			status,
+		),
+	})
+}
+
+func UpdateChargePointConnector(c *fiber.Ctx) error {
+	idParam := c.Params("id")
+	status := c.Params("status")
+
+	// Convert string of id to unsigned integer
+	id, parseErr := strconv.ParseUint(idParam, 10, 32)
+	if parseErr != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: parseErr.Error(),
+		})
+	}
+
+	if err := database.UpdateChargePointConnector(database.DB, uint(id), status); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(Response{
+		Status: "Success",
+		Message: fmt.Sprintf("Charge point connector with id %d updated with status %s",
+			id,
+			status,
 		),
 	})
 }

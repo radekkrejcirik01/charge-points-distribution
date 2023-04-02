@@ -17,6 +17,9 @@ func Create() *fiber.App {
 	app.Get("/add/charge-point-connector/:chargePointId/:status",
 		controller.AddChargePointConnector,
 	)
+	app.Get("/update/charge-point-connector/:id/:status",
+		controller.UpdateChargePointConnector,
+	)
 
 	return app
 }

@@ -76,8 +76,16 @@ func AddChargePoint(db *gorm.DB, groupId uint) error {
 }
 
 func AddChargePointConnector(db *gorm.DB, chPointId uint, status string) error {
-	return db.Table("charge_point_connectors").Create(&ChargePointConnector{
-		ChargePointId: chPointId,
-		Status:        status,
-	}).Error
+	return db.Table("charge_point_connectors").
+		Create(&ChargePointConnector{
+			ChargePointId: chPointId,
+			Status:        status,
+		}).Error
+}
+
+func UpdateChargePointConnector(db *gorm.DB, id uint, status string) error {
+	return db.Table("charge_point_connectors").
+		Where("id = ?", id).
+		Update("status", status).
+		Error
 }
