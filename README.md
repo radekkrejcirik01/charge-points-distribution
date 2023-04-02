@@ -8,9 +8,10 @@ This application distributes maximum current of charge group between charge poin
 
 ## Running app step by step
 To start the app locally, all we need is to run database container with init values and then build the image of the app and run it using docker. The app is then active on localhost:8080
-`./docs/run.md`
 
-## Run test locally
+All steps are described in subfolder `/docs/run.md`
+
+## Run uint tests
 
 ```shell
 go test ./pkg/service -v
@@ -18,5 +19,5 @@ go test ./pkg/service -v
 
 ## REST API endpoints documentation
 
-The documenation of each endpoint can be found in `./docs/api/openapi.spec.yml`
+The documenation of each endpoint can be found in OpenAPI `/docs/api/openapi.spec.yml`
 with success and error responses
