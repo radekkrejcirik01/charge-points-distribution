@@ -26,6 +26,9 @@ docker run -it -p 8080:8080 charge-points-distribution
 docker ps
 ```
 ### 7) Open localhost with port 8080
+```shell
+localhost:8080
+```
 
 ## Run unit tests
 ```shell
