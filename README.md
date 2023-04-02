@@ -11,7 +11,7 @@ To start the app locally, all we need is to run database container with init val
 
 All steps are described in subfolder `/docs/run.md`
 
-## Run uint tests
+## Run unit tests
 
 ```shell
 go test ./pkg/service -v
