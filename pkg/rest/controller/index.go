@@ -8,9 +8,13 @@ import (
 
 // Welcome page of the app
 func Index(c *fiber.Ctx) error {
-	fmt.Fprintln(c.Response().BodyWriter(), "Welcome! 👋")
-	fmt.Fprintln(c.Response().BodyWriter(), "This application distributes maximum current of charge group between charge points based on charging status. Full docs can be found at repository README or docs subfolder")
-	fmt.Fprintln(c.Response().BodyWriter(), "Get started with path /get")
+	_, err := fmt.Fprint(c.Response().BodyWriter(),
+		`
+		Welcome! 👋
+		This app distributes maximum current of charge group between charge points based on priority.
+		Full docs can be found at repository README or docs subfolder
+		Get started with path /get
+		`)
 
-	return nil
+	return err
 }

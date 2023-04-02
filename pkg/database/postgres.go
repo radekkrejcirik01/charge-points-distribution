@@ -31,7 +31,7 @@ func GetGroups(d *gorm.DB) ([]Group, error) {
 
 	// If number of groups is 0 return error message
 	if len(groups) == 0 {
-		return groups, fmt.Errorf("no groups found 😔")
+		return groups, fmt.Errorf("no groups found")
 	}
 
 	return groups, nil
@@ -46,7 +46,7 @@ func GetChargePoints(d *gorm.DB) ([]ChargePoint, error) {
 
 	// If number of charge points is 0 return error message
 	if len(chPoints) == 0 {
-		return chPoints, fmt.Errorf("no charge points found 😔")
+		return chPoints, fmt.Errorf("no charge points found")
 	}
 
 	return chPoints, nil
@@ -61,20 +61,24 @@ func GetChargePointsConnectors(d *gorm.DB) ([]ChargePointConnector, error) {
 
 	// If number of charge point connectors is 0 return error message
 	if len(chPointConnectors) == 0 {
-		return chPointConnectors, fmt.Errorf("no connectors for charge points found 😔")
+		return chPointConnectors, fmt.Errorf("no connectors for charge points found")
 	}
 
 	return chPointConnectors, nil
 }
 
+// Create a new group with maximal current value in groups table
 func CreateGroup(db *gorm.DB, maxCurrent float32) error {
 	return db.Table("groups").Create(&Group{MaxCurrent: maxCurrent}).Error
 }
 
+// Add a new charge point with group id to charge_points table
 func AddChargePoint(db *gorm.DB, groupId uint) error {
 	return db.Table("charge_points").Create(&ChargePoint{GroupId: groupId}).Error
 }
 
+// Add a new charge point connector with charge point id and status to
+// charge_point_connectors table
 func AddChargePointConnector(db *gorm.DB, chPointId uint, status string) error {
 	return db.Table("charge_point_connectors").
 		Create(&ChargePointConnector{
@@ -83,6 +87,7 @@ func AddChargePointConnector(db *gorm.DB, chPointId uint, status string) error {
 		}).Error
 }
 
+// Update status of charge point connector with id in charge_point_connectors table
 func UpdateChargePointConnector(db *gorm.DB, id uint, status string) error {
 	return db.Table("charge_point_connectors").
 		Where("id = ?", id).
