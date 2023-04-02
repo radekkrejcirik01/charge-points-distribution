@@ -11,6 +11,7 @@ import (
 )
 
 func GetOutput(c *fiber.Ctx) error {
+	// Get output of all charge points with distributed currents
 	output, err := service.GetOutput(database.DB)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(Response{
