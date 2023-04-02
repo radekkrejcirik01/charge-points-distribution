@@ -10,7 +10,7 @@ import (
 func main() {
 	database.Connect()
 
-	if err := rest.Create().Listen(":8081"); err != nil {
+	if err := rest.Create().Listen(":8080"); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -9,9 +9,8 @@ import (
 // Welcome page of the app
 func Index(c *fiber.Ctx) error {
 	fmt.Fprintln(c.Response().BodyWriter(), "Welcome! 👋")
-	fmt.Fprintln(c.Response().BodyWriter(), "This app creates and updates groups of charge points. The output is a list of charge points with currents values")
-	fmt.Fprintln(c.Response().BodyWriter(), "Paths 👇")
-	fmt.Fprintln(c.Response().BodyWriter(), "/get - get output of all groups and their charge points with it's currents")
+	fmt.Fprintln(c.Response().BodyWriter(), "This application distributes maximum current of charge group between charge points based on charging status. Full docs can be found at repository README or docs subfolder")
+	fmt.Fprintln(c.Response().BodyWriter(), "Get started with path /get")
 
 	return nil
 }

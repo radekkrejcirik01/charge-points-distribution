@@ -9,8 +9,8 @@ import (
 func Create() *fiber.App {
 	app := fiber.New()
 
+	app.Get("/", controller.Index)
 	app.Get("/get", controller.GetOutput)
-
 	// Get method to simplify adding new records on localhost
 	app.Get("/create/group/:maxCurrent", controller.CreateGroup)
 	app.Get("/add/charge-point/:groupId", controller.AddChargePoint)

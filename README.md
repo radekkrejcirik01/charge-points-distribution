@@ -1,12 +1,13 @@
 # Current distribution REST API
 
-App for current distribution in groups of charge points
+This application distributes maximum current of charge group between charge points based on charging status of each charge point's connectors. If charge point has none connectors with `Charging` status, 0 current is allocated to the charge point.
 
 ## Run requirements
 - Docker
 - Database management tool e.g. TablePlus (optional)
 
-## Run the app step by step
+## Running app step by step
+To start the app locally, all we need is to run database container with init values and then build the image of the app and run it using docker. The app is then active on localhost:8080
 `./docs/run.md`
 
 ## Run test locally
