@@ -200,11 +200,15 @@ components:
       type: object
       required:
         - id
+        - groupId
         - priority
       properties:
         id:
           type: uint
           example: 1
+        groupId:
+          type: uint
+          example: 3
         priority:
           type: int
           example: 5
