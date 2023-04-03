@@ -42,7 +42,7 @@ func CreateGroup(c *fiber.Ctx) error {
 	}
 
 	// Create group with converted maxCurrent to float32
-	if err := database.CreateGroup(database.DB, t.MaxCurrent); err != nil {
+	if err := database.CreateGroup(database.DB, t); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(Response{
 			Status:  "error",
 			Message: err.Error(),
