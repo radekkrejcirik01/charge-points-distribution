@@ -78,17 +78,44 @@ func AddChargePoint(db *gorm.DB, t *ChargePoint) error {
 	return db.Table("charge_points").Create(t).Error
 }
 
+// Get count of charge points in group from charge_points table
+func GetGroupChargePointsCount(db *gorm.DB, t *ChargePoint) (int64, error) {
+	var count int64
+	if err := db.Table("charge_points").Where("group_id = ?", t.GroupId).Count(&count).Error; err != nil {
+		return 0, err
+	}
+
+	// If count of charge points is 0 return error message
+	if count == 0 {
+		return 0, fmt.Errorf("no charge points found")
+	}
+
+	return count, nil
+}
+
+// Add a new charge point with group id and priority to charge_points table
+func GetChargePointsByGroupId(db *gorm.DB, t *ChargePoint) error {
+	return db.Table("charge_points").Create(t).Error
+}
+
+// Update priority of charge point by id in charge_points table
+func UpdateChargePoint(db *gorm.DB, t *ChargePoint) error {
+	return db.Table("charge_points").
+		Where("id = ?", t.Id).
+		Update("priority", t.Priority).
+		Error
+}
+
 // Add a new charge point connector with charge point id and status to
 // charge_point_connectors table
 func AddChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
 	return db.Table("charge_point_connectors").Create(t).Error
 }
 
-// Update status of charge point connector with id and charge point id in
-// charge_point_connectors table
+// Update status of charge point connector by id in charge_point_connectors table
 func UpdateChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
 	return db.Table("charge_point_connectors").
-		Where("id = ? AND charge_point_id = ?", t.Id, t.ChargePointId).
+		Where("id = ?", t.Id).
 		Update("status", t.Status).
 		Error
 }

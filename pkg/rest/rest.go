@@ -16,6 +16,7 @@ func Create() *fiber.App {
 	app.Post("/charge-point", controller.AddChargePoint)
 	app.Post("/charge-point-connector", controller.AddChargePointConnector)
 
+	app.Put("/charge-point", controller.UpdateChargePoint)
 	app.Put("/charge-point-connector", controller.UpdateChargePointConnector)
 
 	return app

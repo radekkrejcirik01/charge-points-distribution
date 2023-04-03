@@ -89,9 +89,31 @@ paths:
               schema:
                   $ref: "#/components/schemas/Response"
 
+    "/charge-point":
+    put:
+      description: Update a charge point with priority by id
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/UpdateChargePoint"
+      responses:
+        '200':
+          description: Success message
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Response"
+        '500':
+          description: Internal server error with message
+          content:
+            "application/json":
+              schema:
+                  $ref: "#/components/schemas/Response"
+
     "/charge-point-connector":
     put:
-      description: Update a charge point connector with status by connector id and charge point id
+      description: Update a charge point connector with status by id
       requestBody:
         content:
           "application/json":
@@ -173,6 +195,19 @@ components:
         priority:
           type: int
           example: 2
+    
+    UpdateChargePoint:
+      type: object
+      required:
+        - id
+        - priority
+      properties:
+        id:
+          type: uint
+          example: 1
+        priority:
+          type: int
+          example: 5
 
     AddChargePointConnector:
       type: object
@@ -190,16 +225,12 @@ components:
     UpdateChargePointConnector:
       type: object
       required:
-        - chargePointConnectorId
-        - chargePointId
+        - id
         - status
       properties:
-        chargePointConnectorId:
+        id:
           type: uint
           example: 1
-        chargePointId:
-          type: uint
-          example: 2
         status:
           type: string
           example: "Charging"

@@ -83,6 +83,49 @@ func AddChargePoint(c *fiber.Ctx) error {
 	})
 }
 
+// Update charge point priority by id in database
+func UpdateChargePoint(c *fiber.Ctx) error {
+	t := &database.ChargePoint{}
+
+	// Parse request body
+	if err := c.BodyParser(t); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: err.Error(),
+		})
+	}
+
+	chPointsCount, getErr := database.GetGroupChargePointsCount(database.DB, t)
+	if getErr != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: getErr.Error(),
+		})
+	}
+
+	if t.Priority > int(chPointsCount) {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: "Invalid, priority must be lower or equal than count of charge points in group.",
+		})
+	}
+
+	if err := database.UpdateChargePoint(database.DB, t); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(Response{
+			Status:  "error",
+			Message: err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(Response{
+		Status: "Success",
+		Message: fmt.Sprintf("Charge point with id %d updated with priority %d",
+			t.Id,
+			t.Priority,
+		),
+	})
+}
+
 // Add charge point connector with charge point id and status to database
 func AddChargePointConnector(c *fiber.Ctx) error {
 	t := &database.ChargePointConnector{}
@@ -133,7 +176,7 @@ func UpdateChargePointConnector(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(Response{
 		Status: "Success",
 		Message: fmt.Sprintf("Charge point connector with id %d updated with status %s",
-			t.ChargePointId,
+			t.Id,
 			t.Status,
 		),
 	})

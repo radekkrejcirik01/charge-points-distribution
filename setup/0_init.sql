@@ -8,7 +8,7 @@ CREATE TABLE groups (
 CREATE TABLE charge_points (
     id serial primary key,
     group_id integer not null,
-    priority integer not null
+    priority integer check (priority > 0)
 );
 
 CREATE TABLE charge_point_connectors (
