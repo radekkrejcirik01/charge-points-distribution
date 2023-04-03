@@ -24,15 +24,15 @@ database = "distribution"
 ```shell
 localhost:8080
 ```
-### 5) Perform API post and put requests using API plaform e.g. Postman (optional)
-To succesfully call `POST` and `PUT` requests for updating charge points and connectors
+### 5) Perform API post and put requests using API platform e.g. Postman (optional)
+To successfully call `POST` and `PUT` requests for creating and updating groups, charge points and connectors
 we need to open the API platfom tool and select either `POST` or `PUT` method
 
 Example:
 ```shell
 `PUT` localhost:8080/charge-point
 ```
-The request body will contain `id`, `groupId` and `priority` fields.
+The request body will contain `id`, `groupId` and `priority` fields
 
 Detailed description of the endpoints can be found in `docs/api/openapi.spec.yml` file
 
