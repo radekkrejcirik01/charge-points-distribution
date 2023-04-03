@@ -177,11 +177,11 @@ components:
     CreateGroup:
       type: object
       required:
-        - groupId
+        - maxCurrent
       properties:
-        groupId:
-          type: uint
-          example: 1
+        maxCurrent:
+          type: float32
+          example: 35.2
     
     AddChargePoint:
       type: object

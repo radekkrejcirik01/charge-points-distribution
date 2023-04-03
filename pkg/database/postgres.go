@@ -69,8 +69,8 @@ func GetChargePointsConnectors(d *gorm.DB) ([]ChargePointConnector, error) {
 }
 
 // Create a new group with maximal current value in groups table
-func CreateGroup(db *gorm.DB, maxCurrent float32) error {
-	return db.Table("groups").Create(&Group{MaxCurrent: maxCurrent}).Error
+func CreateGroup(db *gorm.DB, t *Group) error {
+	return db.Table("groups").Create(t).Error
 }
 
 // Add a new charge point with group id and priority to charge_points table
