@@ -24,4 +24,4 @@ The documenation of each endpoint can be found in OpenAPI `/docs/api/openapi.spe
 with success and error responses
 
 ## Video presentation
-https://drive.google.com/file/d/1XB021zDfmUCC4nACO7jqg79ARtUuegJX/view?usp=share_link
+https://drive.google.com/file/d/1A-vsSxIdviTYjCY-J4Befd1XZGgr-PS-/view?usp=share_link

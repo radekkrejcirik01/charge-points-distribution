@@ -8,7 +8,7 @@ info:
 paths:
   "/get":
     get:
-      description: Get all the current distribution between charge points in groups from database
+      description: Get all current distribution of charge points in groups based on the priority of charge point
       responses:
         '200':
           description: List of maps with charge point id and current
