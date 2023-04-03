@@ -11,15 +11,12 @@ func Create() *fiber.App {
 
 	app.Get("/", controller.Index)
 	app.Get("/get", controller.GetOutput)
-	// Get method to simplify adding new records on localhost
-	app.Get("/create/group/:maxCurrent", controller.CreateGroup)
-	app.Get("/add/charge-point/:groupId", controller.AddChargePoint)
-	app.Get("/add/charge-point-connector/:chargePointId/:status",
-		controller.AddChargePointConnector,
-	)
-	app.Get("/update/charge-point-connector/:id/:status",
-		controller.UpdateChargePointConnector,
-	)
+
+	app.Post("/group", controller.CreateGroup)
+	app.Post("/charge-point", controller.AddChargePoint)
+	app.Post("/charge-point-connector", controller.AddChargePointConnector)
+
+	app.Put("/charge-point-connector", controller.UpdateChargePointConnector)
 
 	return app
 }

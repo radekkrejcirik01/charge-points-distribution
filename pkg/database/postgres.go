@@ -73,25 +73,21 @@ func CreateGroup(db *gorm.DB, maxCurrent float32) error {
 	return db.Table("groups").Create(&Group{MaxCurrent: maxCurrent}).Error
 }
 
-// Add a new charge point with group id to charge_points table
-func AddChargePoint(db *gorm.DB, groupId uint) error {
-	return db.Table("charge_points").Create(&ChargePoint{GroupId: groupId}).Error
+// Add a new charge point with group id and priority to charge_points table
+func AddChargePoint(db *gorm.DB, t *ChargePoint) error {
+	return db.Table("charge_points").Create(t).Error
 }
 
 // Add a new charge point connector with charge point id and status to
 // charge_point_connectors table
-func AddChargePointConnector(db *gorm.DB, chPointId uint, status string) error {
-	return db.Table("charge_point_connectors").
-		Create(&ChargePointConnector{
-			ChargePointId: chPointId,
-			Status:        status,
-		}).Error
+func AddChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
+	return db.Table("charge_point_connectors").Create(t).Error
 }
 
 // Update status of charge point connector with id in charge_point_connectors table
-func UpdateChargePointConnector(db *gorm.DB, id uint, status string) error {
+func UpdateChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
 	return db.Table("charge_point_connectors").
-		Where("id = ?", id).
-		Update("status", status).
+		Where("id = ?", t.ChargePointId).
+		Update("status", t.Status).
 		Error
 }
