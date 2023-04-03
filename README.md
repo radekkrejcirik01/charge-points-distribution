@@ -7,7 +7,7 @@ This application distributes maximum current of charge group between charge poin
 - Database management tool e.g. TablePlus (optional)
 
 ## Running app step by step
-To start the app locally, all we need is to run database container with init values and then build the image of the app and run it using docker. The app is then active on localhost:8080
+To start the app locally, all we need is to run the database and app containers with init values using docker. The app is then active on localhost:8080
 
 All steps are described in subfolder `/docs/run.md`
 

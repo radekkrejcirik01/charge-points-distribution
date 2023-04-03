@@ -1,11 +1,11 @@
-## To make the app work we need to run the database container and build the app image with these simple steps:
-## Run database container
-### 1) Build and start the container with init sql script
-Details about postgres service can be found in `docker-compose.yaml` file
+## To make the app work we need to run the database and app containers with these simple steps:
+
+### 1) Build and start the containers with init sql script
+Details about postgres and app services can be found in `docker-compose.yaml` file
 ```shell
-docker compose up -d
+docker-compose up
 ```
-### 2) Check the running container
+### 2) Check the running containers
 ```shell
 docker container ls
 ```
@@ -20,25 +20,7 @@ user     = "user"
 password = "userpassword"
 database = "distribution"
 ```
-
-## Run the application
-### 1) Build the `charge-points-distribution` image
-```shell
-docker build -t charge-points-distribution .
-```
-### 2) Check the built image
-```shell
-docker images
-```
-### 3) Run the app
-```shell
-docker run -it -p 8080:8080 charge-points-distribution
-```
-### 4) Check that the app is running
-```shell
-docker ps
-```
-### 5) Open localhost with port 8080
+### 4) Open localhost with port 8080
 ```shell
 localhost:8080
 ```

@@ -1,20 +1,19 @@
 version: '3.8'
 
-volumes:
-  postgres_data: { }
-
 services:
-
-  postgres:
+  db:
     image: postgres:13.2
+    container_name: "database"
     ports:
       - '5432:5432'
     environment:
       POSTGRES_DB: distribution
       POSTGRES_USER: user
       POSTGRES_PASSWORD: userpassword
+    networks:
+     - fullstack
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
+      test: ["CMD", "pg_isready", "-U", "user", "-d"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -22,3 +21,26 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./setup/0_init.sql:/docker-entrypoint-initdb.d/0_init.sql:ro
       - ./setup/1_seed.sql:/docker-entrypoint-initdb.d/1_seed.sql:ro
+  
+  web:
+    build: .
+    container_name: "charge-points-distribution"
+    environment:
+      DBHOST: "host.docker.internal"
+      DBPORT: "5432"
+      DBUSER: "user"
+      DBPASSWORD: "userpassword"
+      DBNAME: "distribution"
+    ports:
+     - "8080:8080"
+    depends_on:
+     - db
+    networks:
+     - fullstack
+
+volumes:
+  postgres_data: { }
+
+networks:
+ fullstack:
+  driver: bridge
