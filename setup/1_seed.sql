@@ -2,17 +2,17 @@
 
 insert into groups (max_current) values (25), (12.5);
 
-insert into charge_points (group_id) values
-(2),
-(2),
-(1),
-(1),
-(1),
-(2),
-(1),
-(1),
-(2),
-(1);
+insert into charge_points (group_id, priority) values
+(2, 2),
+(2, 3),
+(1, 1),
+(1, 6),
+(1, 1),
+(2, 4),
+(1, 1),
+(1, 3),
+(2, 2),
+(1, 5);
 
 insert into charge_point_connectors (charge_point_id, status) values
 (1, 'Available'),

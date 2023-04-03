@@ -12,8 +12,9 @@ type Group struct {
 }
 
 type ChargePoint struct {
-	Id      uint
-	GroupId uint
+	Id       uint
+	GroupId  uint
+	Priority int
 }
 
 type ChargePointConnector struct {

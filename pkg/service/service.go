@@ -46,14 +46,14 @@ func getOutput(
 	output := make([]Output, 0)
 
 	for _, group := range groups {
-		availableChPointIds := make([]uint, 0)
+		availableChPoints := make([]database.ChargePoint, 0)
 
 		// Get all charge points per group
 		chPoints := getChargePointsByGroupId(group.Id, chargePoints)
 		for _, chPoint := range chPoints {
 			// Check if charge point has at least one charging status
 			if hasChargePointChargingStatus(chPoint.Id, chargePointsConnectors) {
-				availableChPointIds = append(availableChPointIds, chPoint.Id)
+				availableChPoints = append(availableChPoints, chPoint)
 			} else {
 				// Allocate current 0 if there is no connector with charging status
 				output = append(output, Output{
@@ -65,7 +65,7 @@ func getOutput(
 
 		// Distribute the maximal current between available charge points
 		currents := distributeCurrent(
-			availableChPointIds,
+			availableChPoints,
 			group.MaxCurrent,
 		)
 
@@ -110,17 +110,28 @@ func hasChargePointChargingStatus(
 	return false
 }
 
-// Distribute the maximal current between available charge points
-func distributeCurrent(availableChPointIds []uint, maxCurrent float32) []Output {
+// Distribute the maximal current between available charge points based on priority
+func distributeCurrent(
+	availableChPoints []database.ChargePoint,
+	maxCurrent float32,
+) []Output {
 	output := make([]Output, 0)
 
-	// Devide the maxinal current by number of charge points
-	chargePointsNumber := len(availableChPointIds)
-	current := maxCurrent / float32(chargePointsNumber)
+	// Get summary of all priorities
+	var prioritySum int
+	for _, chPoint := range availableChPoints {
+		prioritySum += chPoint.Priority
+	}
 
-	for _, chargePointId := range availableChPointIds {
+	// Get one unit by dividing the maximal current by summary of priorities
+	currentUnit := maxCurrent / float32(prioritySum)
+
+	for _, chPoint := range availableChPoints {
+		// Calculate the current, multiply one current unit by priority
+		current := currentUnit * float32(chPoint.Priority)
+
 		output = append(output, Output{
-			ChargePointId: chargePointId,
+			ChargePointId: chPoint.Id,
 			Current:       current,
 		})
 	}

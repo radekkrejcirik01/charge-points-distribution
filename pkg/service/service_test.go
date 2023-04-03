@@ -91,39 +91,45 @@ func TestHasChargePointChargingStatus(t *testing.T) {
 }
 
 func TestDistributeCurrent(t *testing.T) {
-	availableChPointIds := []uint{1, 2}
+	availableChPoints := []database.ChargePoint{
+		{Id: 1, Priority: 2},
+		{Id: 2, Priority: 3},
+		{Id: 3, Priority: 1}}
 
 	tests := []struct {
 		name       string
 		maxCurrent float32
-		provided   []uint
+		provided   []database.ChargePoint
 		expected   []Output
 	}{
 		{
 			name:       "Pass zero as maximal current",
 			maxCurrent: 0,
-			provided:   availableChPointIds,
+			provided:   availableChPoints,
 			expected: []Output{
 				{ChargePointId: 1, Current: 0},
 				{ChargePointId: 2, Current: 0},
+				{ChargePointId: 3, Current: 0},
 			},
 		},
 		{
 			name:       "Pass decimal number as maximal current",
-			maxCurrent: 12.5,
-			provided:   availableChPointIds,
+			maxCurrent: 12.75,
+			provided:   availableChPoints,
 			expected: []Output{
-				{ChargePointId: 1, Current: 6.25},
-				{ChargePointId: 2, Current: 6.25},
+				{ChargePointId: 1, Current: 4.25},
+				{ChargePointId: 2, Current: 6.375},
+				{ChargePointId: 3, Current: 2.125},
 			},
 		},
 		{
 			name:       "Pass whole number as maximal current",
-			maxCurrent: 20,
-			provided:   availableChPointIds,
+			maxCurrent: 24,
+			provided:   availableChPoints,
 			expected: []Output{
-				{ChargePointId: 1, Current: 10},
-				{ChargePointId: 2, Current: 10},
+				{ChargePointId: 1, Current: 8},
+				{ChargePointId: 2, Current: 12},
+				{ChargePointId: 3, Current: 4},
 			},
 		},
 	}
