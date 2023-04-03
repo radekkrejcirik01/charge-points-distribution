@@ -21,3 +21,6 @@ go test ./pkg/service -v
 
 The documenation of each endpoint can be found in OpenAPI `/docs/api/openapi.spec.yml`
 with success and error responses
+
+## Video presentation
+https://drive.google.com/file/d/1XB021zDfmUCC4nACO7jqg79ARtUuegJX/view?usp=share_link
