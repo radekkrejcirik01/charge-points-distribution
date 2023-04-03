@@ -24,6 +24,14 @@ database = "distribution"
 ```shell
 localhost:8080
 ```
+### 5) Perform API post and put requests using API plaform e.g. Postman (optional)
+To succesfully call `POST` and `PUT` requests for updating charge points and connectors
+we need to open the API platfom tool and select either `POST` or `PUT` method
+Example:
+```shell
+`POST` localhost:8080/charge-point
+```
+The request body will contain `id`, `groupId` and `priority` fields
 
 ## Run unit tests
 ```shell

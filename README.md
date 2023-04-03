@@ -5,6 +5,7 @@ This application distributes maximum current of charge group between charge poin
 ## Run requirements
 - Docker
 - Database management tool e.g. TablePlus (optional)
+- API platform e.g. Postman (optional)
 
 ## Running app step by step
 To start the app locally, all we need is to run the database container with init sql scripts and the app container using Docker. The app is then active on localhost:8080
