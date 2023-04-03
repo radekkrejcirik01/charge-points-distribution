@@ -111,7 +111,7 @@ func AddChargePointConnector(c *fiber.Ctx) error {
 	})
 }
 
-// Update charge point connector status by id in database
+// Update charge point connector status by id and charge point id in database
 func UpdateChargePointConnector(c *fiber.Ctx) error {
 	t := &database.ChargePointConnector{}
 

@@ -84,10 +84,11 @@ func AddChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
 	return db.Table("charge_point_connectors").Create(t).Error
 }
 
-// Update status of charge point connector with id in charge_point_connectors table
+// Update status of charge point connector with id and charge point id in
+// charge_point_connectors table
 func UpdateChargePointConnector(db *gorm.DB, t *ChargePointConnector) error {
 	return db.Table("charge_point_connectors").
-		Where("id = ?", t.ChargePointId).
+		Where("id = ? AND charge_point_id = ?", t.Id, t.ChargePointId).
 		Update("status", t.Status).
 		Error
 }

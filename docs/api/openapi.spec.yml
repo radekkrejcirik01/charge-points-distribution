@@ -23,9 +23,14 @@ paths:
               schema:
                   $ref: "#/components/schemas/Response"
 
-  "/create/group/{maxCurrent}":
-    get:
+  "/group/":
+    post:
       description: Create a new group with maximal current
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/CreateGroup"
       responses:
         '200':
           description: Success message
@@ -40,9 +45,14 @@ paths:
               schema:
                   $ref: "#/components/schemas/Response"
 
-  "/add/charge-point/{groupId}":
-    get:
-      description: Add a new charge point with group id
+  "/charge-point":
+    post:
+      description: Add a new charge point with group id and priority
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/AddChargePoint"
       responses:
         '200':
           description: Success message
@@ -57,9 +67,14 @@ paths:
               schema:
                   $ref: "#/components/schemas/Response"
 
-  "/add/charge-point-connector/{chargePointId}/{status}":
-    get:
+  "/charge-point-connector":
+    post:
       description: Add a new charge point connector with status for specific charge point
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/AddChargePointConnector"
       responses:
         '200':
           description: Success message
@@ -74,9 +89,14 @@ paths:
               schema:
                   $ref: "#/components/schemas/Response"
 
-    "/update/charge-point-connector/{id}/{status}":
-    get:
-      description: Update a charge point connector with status by connector id
+    "/charge-point-connector":
+    put:
+      description: Update a charge point connector with status by connector id and charge point id
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              $ref: "#/components/schemas/UpdateChargePointConnector"
       responses:
         '200':
           description: Success message
@@ -131,3 +151,55 @@ components:
             current:
               type: float32
               example: 10.25
+    
+    CreateGroup:
+      type: object
+      required:
+        - groupId
+      properties:
+        groupId:
+          type: uint
+          example: 1
+    
+    AddChargePoint:
+      type: object
+      required:
+        - groupId
+        - priority
+      properties:
+        groupId:
+          type: uint
+          example: 1
+        priority:
+          type: int
+          example: 2
+
+    AddChargePointConnector:
+      type: object
+      required:
+        - chargePointId
+        - status
+      properties:
+        chargePointId:
+          type: uint
+          example: 1
+        status:
+          type: string
+          example: "Charging"
+
+    UpdateChargePointConnector:
+      type: object
+      required:
+        - chargePointConnectorId
+        - chargePointId
+        - status
+      properties:
+        chargePointConnectorId:
+          type: uint
+          example: 1
+        chargePointId:
+          type: uint
+          example: 2
+        status:
+          type: string
+          example: "Charging"
